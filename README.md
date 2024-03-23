@@ -12,7 +12,7 @@ Important Algorithms and DS, and tips and tricks
 ```sh
 int[] a = new int[n]; // assume our array of length = n
 int maxSum = a[0]; // this will be the maxSum
-int sum = a[0];
+int sum = 0;
 for(int i = 0; i<n; i++) {
     if(sum>=0) {
         sum += a[i];
@@ -28,7 +28,7 @@ for(int i = 0; i<n; i++) {
 ```sh
 int[] a = new int[n]; // assume our array of length = n
 int maxSum = a[0]; // this will be the maxSum
-int sum = a[0];
+int sum = 0;
 for(int i = 0; i<n; i++) {
     if(sum>=0) {
         sum += a[i];
@@ -47,7 +47,7 @@ if(maxSum<0) {
 ```sh
 int[] a = new int[n]; // assume our array of length = n
 int minSum = a[0]; // this will be the minSum
-int sum = a[0];
+int sum = 0;
 for(int i = 0; i<n; i++) {
     if(sum>=0) {
         sum += a[i];
@@ -63,7 +63,7 @@ for(int i = 0; i<n; i++) {
 ```sh
 int[] a = new int[n]; // assume our array of length = n
 int minSum = a[0]; // this will be the minSum
-int sum = a[0];
+int sum = 0;
 for(int i = 0; i<n; i++) {
     if(sum>=0) {
         sum += a[i];
