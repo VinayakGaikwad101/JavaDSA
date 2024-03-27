@@ -79,6 +79,7 @@ if(minSum<0) {
 ```
 
 ---
+
 ## 2) Boyer Moore's Majority Voting Algorithm: 
 ### Used to find element of maximum occurrence in an array
 
@@ -122,3 +123,28 @@ else {
 ```
 
 ---
+
+## 3) Primality Test: 
+### Used to find if a number is prime or not
+
+[Link for reference](https://youtu.be/toT21DALrCg?si=k2_2bHPeWWASTOXE)
+### has only 1 variant:
+### 1. Time complexity: O(√N):
+Normal check: i=2 to n-1, but reduced: i=2 to √n
+
+```sh 
+bool isPrime(int n) {
+    if(n==1) {
+        return false;
+    }
+    for(int i = 2; i*i<=n; i++) {
+    // checking till √n as above condition also means i<=√n
+    if(n%i == 0) {
+        return false;
+    }
+    return true;
+}
+```
+
+---
+
