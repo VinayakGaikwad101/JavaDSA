@@ -148,3 +148,55 @@ bool isPrime(int n) {
 
 ---
 
+## 4) Sieve of Eratosthenes: 
+### Used to generate Prime Numbers in a given range [1, n]
+
+[Link for reference](https://youtu.be/7zYMjXqdchc?si=a-B3nOE5hcjfTzda)
+### has only 1 variant:
+### 1. Time complexity: O(N*log(log N)):
+Similar to Primality Test, we check for i<=√n, and cross out all multiples of 2, then 3, then 5 and so on.
+But for 5 and above, we start the check from it's square, as 10, 15 and 20 would've been already marked out as composite due to 2 and 3.
+Similarly, for 7 (7²=49), (11²=121), etc. 
+
+```sh 
+import java.util.*;
+public class main {
+	  public static List<Integer> findPrimes(int low, int high) {
+	    int n = high + 1; // Adjust size for inclusivity
+	    boolean[] isPrime = new boolean[n];
+	    Arrays.fill(isPrime, true);
+	    isPrime[0] = isPrime[1] = false;
+
+	    for (int i = 2; i * i < n; i++) {
+	      if (isPrime[i]) {
+	        for (int j = i * i; j < n; j += i) {
+	          isPrime[j] = false;
+	        }
+	      }
+	    }
+
+	    List<Integer> primes = new ArrayList<>();
+	    for (int i = Math.max(low, 2); i <= high; i++) { // Handle negative low
+	      if (isPrime[i]) {
+	        primes.add(i);
+	      }
+	    }
+	    return primes;
+	  }
+
+	  public static void main(String[] args) {
+	    int low = -9999; // set this as the lowerBound (included)
+	    int high = 100; // set this as the upperBound (included)
+	    List<Integer> primes = findPrimes(low, high);
+
+	    System.out.println("Prime numbers between " + low + " and " + high + ":");
+	    for (int prime : primes) {
+	      System.out.print(prime + " ");
+	    }
+	  }
+}
+
+// primes is an ArrayList that contains all Primes within [low, high] (inclusive) 
+```
+
+---
