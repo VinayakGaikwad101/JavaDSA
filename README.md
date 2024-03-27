@@ -123,8 +123,10 @@ else {
 ```
 
 ---
+# Important Algorithms:
+---
 
-## 3) Primality Test: 
+## 1) Primality Test: 
 ### Used to find if a number is prime or not
 
 [Link for reference](https://youtu.be/toT21DALrCg?si=k2_2bHPeWWASTOXE)
@@ -148,7 +150,7 @@ bool isPrime(int n) {
 
 ---
 
-## 4) Sieve of Eratosthenes: 
+## 2) Sieve of Eratosthenes: 
 ### Used to generate Prime Numbers in a given range [1, n]
 
 [Link for reference](https://youtu.be/7zYMjXqdchc?si=a-B3nOE5hcjfTzda)
@@ -198,6 +200,41 @@ public class main {
 }
 
 // primes is an ArrayList that contains all Primes within [low, high] (inclusive) 
+```
+
+---
+
+## 3) Prime Factorization: 
+### Gives Prime Factors of a number
+
+[Link for reference](https://youtu.be/UZJ2nO_rTPg?si=B5zyrAYhFuPwK7LJ)
+### has only 1 variant:
+### 1. Time complexity: O(√N):
+
+```sh
+
+import java.util.Scanner;
+public class main {
+	public static void primeFactor(int N) { // take integer input
+		  for (int i = 2; i <= N; i++) { // loop from [2,N]
+		    if (N % i == 0) { // if N is divisible by i, means i is a factor, enter
+		      int power = 0; // set power = 0 for each i
+		      while (N % i == 0) { // as long as N is divisible by i
+		        power++; // increment power by 1
+		        N /= i; // then divide N by i and again while N%i==0 enter again 
+		      }
+		      System.out.print(i + "^" + power + " "); // Use print for spacing
+		    }
+		  }
+		}
+
+
+    public static void main(String[] args) {
+    	int n = 123;
+    	primeFactor(n);
+    }
+}
+
 ```
 
 ---
