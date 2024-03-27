@@ -161,36 +161,37 @@ Similarly, for 7 (7²=49), (11²=121), etc.
 ```sh 
 import java.util.*;
 public class main {
-	  public static List<Integer> findPrimes(int low, int high) {
+	  public static List<Integer> findPrimes(int low, int high) { // returns an Integer List, hence the return datatype
 	    int n = high + 1; // Adjust size for inclusivity
-	    boolean[] isPrime = new boolean[n];
-	    Arrays.fill(isPrime, true);
-	    isPrime[0] = isPrime[1] = false;
+	    boolean[] isPrime = new boolean[n]; // boolean array called isPrime
+	    Arrays.fill(isPrime, true); // fill isPrime array with true (assume all are Prime)
+	    isPrime[0] = isPrime[1] = false; // set 0 and 1 as not prime (false)
 
-	    for (int i = 2; i * i < n; i++) {
-	      if (isPrime[i]) {
-	        for (int j = i * i; j < n; j += i) {
-	          isPrime[j] = false;
+	    for (int i = 2; i * i < n; i++) { // loop from i to √n, refer to Primality Test for more info on why from i to √n
+	      if (isPrime[i]) { // if a number is prime, enter this 
+	        for (int j = i * i; j < n; j += i) { // marks all multiples of i starting from i² to n as false because all of its previous elements are marked as composite by default
+	          isPrime[j] = false; // mark as not prime / composite
 	        }
 	      }
 	    }
 
-	    List<Integer> primes = new ArrayList<>();
-	    for (int i = Math.max(low, 2); i <= high; i++) { // Handle negative low
-	      if (isPrime[i]) {
+	    List<Integer> primes = new ArrayList<>(); // make a new List that will store our Primes from low to high
+	    for (int i = Math.max(low, 2); i <= high; i++) { // Handle negative low 
+	      if (isPrime[i]) { // if it is prime, then add to primes List
 	        primes.add(i);
 	      }
 	    }
-	    return primes;
+	    return primes; // return primes List
 	  }
 
 	  public static void main(String[] args) {
 	    int low = -9999; // set this as the lowerBound (included)
 	    int high = 100; // set this as the upperBound (included)
-	    List<Integer> primes = findPrimes(low, high);
+	    List<Integer> primes = findPrimes(low, high); // List variable to hold all primes
 
+           //Unnecessary:
 	    System.out.println("Prime numbers between " + low + " and " + high + ":");
-	    for (int prime : primes) {
+	    for (int prime : primes) { // iteration to print all elements of primes List
 	      System.out.print(prime + " ");
 	    }
 	  }
