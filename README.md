@@ -123,7 +123,7 @@ else {
 ```
 
 ---
-# Important Algorithms:
+# Number Theory:
 ---
 
 ## 1) Primality Test: 
@@ -238,3 +238,64 @@ public class main {
 ```
 
 ---
+
+## 4) Binary Exponentiation: 
+### Technique to calculate a^n in O(log N) time
+
+[Link for reference](https://youtu.be/lsdwBlk9YGI?si=niETJ9XC7detgE82)
+### has only 1 variant:
+### 1. Time complexity: O(log N):
+works on the principle that to calculate a^n, we can square a and half its power, which essentially gives us (a^2)^(n/2) = a^n as 2/2=1
+so we repeat this step as long as the power is even, as soon as it is odd, we can calculate a^n faster
+Basic Principle: while base is even, square the base and divide the power by 2, else give a^n
+
+Also, keep a variable res = 1. As soon as the power (n) is odd, we reduce power by 1, ie, (n-1) and res*=a.
+As soon as power becomes 0, we return res
+
+```sh
+
+	int binaryExponentiation(int a, int pow) {
+		int res = 1;
+		while(pow!=0) {
+			if(pow%2!=0) {
+				res*=a;
+				pow--;
+			}
+			else {
+				a*=a;
+				pow/=2;
+			}
+		}
+		return res;
+	}
+
+```
+
+---
+
+## 5) Modular Exponentiation: 
+### Technique to calculate a^n % p in O(log N) time
+
+[Link for reference](https://youtu.be/lsdwBlk9YGI?si=niETJ9XC7detgE82)
+### has only 1 variant:
+### 1. Time complexity: O(log N):
+works same as Binary Exponentiation ( 4 )
+
+```sh
+
+	int binaryExponentiation(int a, int pow, int p) {
+		int res = 1;
+		while(pow!=0) {
+			if(pow%2!=0) {
+				res*=a%p;
+				pow--;
+			}
+			else {
+				a*=a%p;
+				pow/=2;
+			}
+		}
+		return res;
+	}
+
+```
