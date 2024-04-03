@@ -1,6 +1,466 @@
 # JavaDSA
 Important Algorithms and DS, and tips and tricks
 
+---
+# DS:
+---
+## 1) LinkedList: 
+### Main.java: 
+
+```sh 
+import java.util.*;
+public class Main {
+  public static void main(String[] args) {
+
+    // Below is LL: 
+    // Java's implementation of LL:
+    LinkedList<Integer> ll = new LinkedList<>();
+    ll.add(123);
+    ll.add(23);
+    ll.add(56);
+    System.out.println("Built in LL: "+ ll); 
+
+    // Our implementation of LL:
+    LL ourll = new LL();
+    // this initializes an empty LL, with size = 0, & head & tail
+
+    ourll.insertFirst(42);
+    ourll.insertFirst(23);
+    ourll.insertFirst(56);
+
+    System.out.println("Our implementation of LL: ");
+    ourll.display(); // to display our ll
+
+    ourll.insertFirst(88);
+    System.out.println("Inserting 88 at the start: ");
+    ourll.display();
+    
+    ourll.insertLast(33);
+    System.out.println("Inserting 33 at the end: ");
+    ourll.display();
+
+    ourll.insert(44, 2);
+    System.out.println("Inserting 44 at index 2: ");
+    ourll.display();
+
+    System.out.println("Deleting first element: "+       
+    ourll.deleteFirst());
+    ourll.display();
+
+    System.out.println("Deleting last element: "+       
+    ourll.deleteLast());
+    ourll.display();
+
+    System.out.println("Deleting element at index 1: "+       
+    ourll.delete(1));
+    ourll.display();
+
+    int index = ourll.find(42);
+    System.out.println("Element 42 found at index: "+ index);
+    // Above is LL
+
+    // Below is DLL
+    DLL ourdll = new DLL();
+    ourdll.insertFirst(42);
+    ourdll.insertFirst(23);
+    ourdll.insertFirst(56);
+    System.out.println("Our implementation of DLL: ");
+    ourdll.display();
+    System.out.println("Reverse DLL: ");
+    ourdll.displayRev();
+
+    ourdll.insertLast(33);
+    System.out.println("Inserting 33 at the end: ");
+    ourdll.display();
+
+    ourdll.insert(699, 2);
+    System.out.println("Inserting 699 at 2 index: ");
+    ourdll.display();
+
+    ourdll.deleteFirst();
+    System.out.println("Deleting first element: ");
+    ourdll.display();
+
+    ourdll.deleteLast();
+    System.out.println("Deleting last element: ");
+    ourdll.display();
+    // Above is DLL
+
+    // Below is CLL
+    CLL ourcll = new CLL();
+    ourcll.insert(42);
+    ourcll.insert(23);
+    ourcll.insert(56);
+    ourcll.insert(88);
+    System.out.println("Our implementation of CLL: ");
+    ourcll.display();
+
+    ourcll.delete(23);
+    System.out.println("Deleting 23: ");
+    ourcll.display();
+    // Above is CLL
+  }
+}
+```
+
+### LL.java: 
+
+```sh 
+public class LL {
+  // private because we dont want anyone to directly modify this class
+  private Node head;
+  private Node tail;
+  private int size;
+
+  public LL() {
+    this.size = 0;
+  }
+
+  public void insertFirst(int val) {
+    Node node = new Node(val);
+    node.next = head;
+    head = node;
+    if(tail==null) { // for 1st element insertion
+      tail = head;
+    }
+    size++;
+  }
+
+  public void insertLast(int val) {
+    if(tail==null) {
+      insertFirst(val);
+      return;
+    }
+    Node node = new Node(val);
+    tail.next = node;
+    tail = node;
+    size++;
+  }
+
+  public void insert(int val, int index) {
+    if(index==0) {
+      insertFirst(val);
+      return;
+    }
+    if(index == size) {
+      insertLast(val);
+      return;
+    }
+    Node temp = head;
+    for(int i=1; i<index; i++) {
+      temp = temp.next;
+    }
+    Node node = new Node(val, temp.next);
+    temp.next = node;
+    size++;
+  }
+
+  public int deleteLast() {
+    if(size<=1) {
+      return deleteFirst();
+    }
+    Node secondLast = get(size-2);
+    int val = tail.value;
+    tail = secondLast;
+    tail.next = null;
+    size--;
+    return val;
+  }
+
+  public int delete(int index) {
+    if(index == 0) {
+      return deleteFirst();
+    }
+    if(index == size-1) {
+      return deleteLast();
+    }
+    Node prev = get(index - 1);
+    int val = prev.next.value;
+    prev.next = prev.next.next;
+    size--;
+    return val;
+  }
+  
+  public int find(int value) {
+      Node node = head;
+      int index = 0;
+      while (node != null) {
+          if (node.value == value) {
+              return index;
+          }
+          node = node.next;
+          index++;
+      }
+      return -1; // Not found
+  }
+  
+  public Node get(int index) {
+    Node node = head;
+    for(int i = 0; i<index; i++) {
+      node = node.next;
+    }
+    return node;
+  }
+  
+  public int deleteFirst() {
+    int val = head.value;
+    head = head.next;
+    if(head==null) {
+      tail = null;
+    }
+    size--;
+    return val;
+  }
+  
+  public void display() {
+    Node temp = head;
+    while(temp!=null) {
+      System.out.print(temp.value + " -> ");
+      temp = temp.next;
+    }
+    System.out.println("NULL");
+  }
+
+  private class Node {
+    private int value;
+    private Node next;
+    public Node(int value) {
+      this.value = value;
+    }
+    public Node(int value, Node next) {
+      this.value = value;
+      this.next = next;
+    }
+  }
+}
+```
+
+### DLL.java: 
+
+```sh 
+public class DLL {
+
+  private Node head;
+  int size = 0; 
+  
+  public void insertFirst(int val) {
+    Node node = new Node(val);
+    node.next = head;
+    node.prev = null;
+    if(head!=null) {
+      head.prev = node;
+    }
+    head = node;
+    size++;
+  } 
+
+  public void display() {
+    Node node = head;
+    System.out.print("NULL <=> ");
+    while (node != null) {
+      System.out.print(node.val + " <=> ");
+      node = node.next;
+    }
+    System.out.println("NULL");
+  }
+
+  public void displayRev() {
+    Node last = head;
+    if (last == null) {
+      System.out.println("NULL");
+      return;
+    }
+
+    while (last.next != null) {
+      last = last.next;
+    }
+    System.out.print("NULL <=> ");
+    while (last != null) {
+      System.out.print(last.val + " <=> ");
+      last = last.prev;
+    }
+    System.out.println("NULL");
+  }
+
+  public void insertLast(int val) {
+    Node node = new Node(val);
+    Node last = head;
+
+    node.next = null;
+    
+    if(head==null) {
+      node.prev = null;
+      head = node;
+      return;
+    }
+      
+    while(last.next!=null) {
+      last = last.next;
+    }
+
+    last.next = node;
+    node.prev = last;
+    
+  }
+
+  public void insert(int val, int index) {
+    if (index < 0 || index > size) {
+      throw new IndexOutOfBoundsException("Invalid index: " + index);
+    }
+
+    if (index == 0) {
+      insertFirst(val);
+      return;
+    }
+
+    if (index == size) {
+      insertLast(val);
+      return;
+    }
+
+    Node current = head;
+    for (int i = 0; i < index - 1; i++) {
+      current = current.next;
+    }
+
+    Node newNode = new Node(val);
+
+    newNode.next = current.next;
+    current.next.prev = newNode;
+    newNode.prev = current;
+    current.next = newNode;
+
+    size++;
+  }
+
+  public int deleteFirst() {
+    if (head == null) {
+      return -1;
+    }
+
+    int val = head.val;
+    head = head.next;
+    if (head != null) {
+      head.prev = null;
+    } else {
+    }
+    size--;
+    return val;
+  }
+
+  public int deleteLast() {
+    if (head == null) {
+      return -1;
+    }
+
+    if (head.next == null) {
+      int val = head.val;
+      head = null;
+      size--;
+      return val;
+    }
+
+    Node last = head;
+    while (last.next.next != null) {
+      last = last.next;
+    }
+
+    int val = last.next.val;
+    last.next = null;
+    size--;
+    return val;
+  }
+  
+  private class Node {
+    int val;
+    Node next;
+    Node prev;
+
+  public Node(int val) {
+    this.val = val;
+    }
+
+  public Node(int val, Node next, Node prev) {
+    this.val = val;
+    this.next = next;
+    this.prev = prev;
+    }
+  }
+}
+```
+
+### CLL.java: 
+
+```sh 
+public class CLL {
+
+  private Node head;
+  private Node tail;
+
+  public CLL() {
+    this.head = null;
+    this.tail = null;
+  }
+
+  public void insert(int val) {
+    Node node = new Node(val);
+    if(head==null) {
+      head = node;
+      tail = node;
+      return;
+    }
+    tail.next = node;
+    node.next = head;
+    tail = node;
+  }
+
+  public void display() {
+    Node node = head;
+    if(head!=null) {
+      do {
+        System.out.print(node.val + " -> ");
+        node = node.next;
+      } while(node!=head);
+    }
+    System.out.println("END");
+  }
+
+  public void delete(int val) {
+    Node node = head;
+    if(node==null) {
+      return;
+    }
+    if(node.val==val) {
+      head = head.next;
+      tail.next = head;
+      return;
+    }
+    do {
+      Node n = node.next;
+      if(n.val==val) {
+        node.next = n.next;
+        break;
+      }
+      node = node.next;
+    } while(node!=head);
+  }
+  
+  private class Node {
+    int val;
+    Node next;
+
+    public Node(int val) {
+      this.val = val;
+    }
+
+    
+  }
+}
+```
+
+---
+
+
 # Important Algorithms:
 
 ## 1) Kadane's Algorithm: 
