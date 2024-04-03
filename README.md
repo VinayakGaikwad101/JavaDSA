@@ -458,6 +458,43 @@ public class CLL {
 }
 ```
 
+### DLL.java: 
+Output:
+```sh 
+Built in LL: [123, 23, 56]
+Our implementation of LL: 
+56 -> 23 -> 42 -> NULL
+Inserting 88 at the start: 
+88 -> 56 -> 23 -> 42 -> NULL
+Inserting 33 at the end: 
+88 -> 56 -> 23 -> 42 -> 33 -> NULL
+Inserting 44 at index 2: 
+88 -> 56 -> 44 -> 23 -> 42 -> 33 -> NULL
+Deleting first element: 88
+56 -> 44 -> 23 -> 42 -> 33 -> NULL
+Deleting last element: 33
+56 -> 44 -> 23 -> 42 -> NULL
+Deleting element at index 1: 44
+56 -> 23 -> 42 -> NULL
+Element 42 found at index: 2
+Our implementation of DLL: 
+NULL <=> 56 <=> 23 <=> 42 <=> NULL
+Reverse DLL: 
+NULL <=> 42 <=> 23 <=> 56 <=> NULL
+Inserting 33 at the end: 
+NULL <=> 56 <=> 23 <=> 42 <=> 33 <=> NULL
+Inserting 699 at 2 index: 
+NULL <=> 56 <=> 23 <=> 699 <=> 42 <=> 33 <=> NULL
+Deleting first element: 
+NULL <=> 23 <=> 699 <=> 42 <=> 33 <=> NULL
+Deleting last element: 
+NULL <=> 23 <=> 699 <=> 42 <=> NULL
+Our implementation of CLL: 
+42 -> 23 -> 56 -> 88 -> END
+Deleting 23: 
+42 -> 56 -> 88 -> END
+```
+
 ---
 
 
